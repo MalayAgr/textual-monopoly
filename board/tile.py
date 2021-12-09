@@ -3,9 +3,10 @@ from rich.console import Console, ConsoleOptions
 from rich.panel import Panel
 from rich.table import Table
 from rich.text import Text
+from textual.widget import Widget
 
 
-class Tile:
+class Tile(Widget):
     def __init__(
         self,
         text: str,
@@ -22,7 +23,7 @@ class Tile:
         self.icon = icon
         self.color = color
 
-    def __rich_console__(self, console: Console, options: ConsoleOptions) -> Panel:
+    def render(self) -> Panel:
         grid = Table.grid(expand=True)
 
         grid.add_column(justify="center")
@@ -42,4 +43,4 @@ class Tile:
 
             grid.add_row(Text(value, style="bold"))
 
-        yield Panel(grid)
+        return Panel(grid)
